@@ -24,17 +24,26 @@
 	Coding is <div id="magic"></div>
 
 	<script>
-
+		// #magic values
 		var words = ["fun", "exciting", "about not giving up", "being helpful", "being open", "what I learned at CodingDojo!"],
+			// el is the div object of #magic
 			el = document.getElementById('magic'),
 			word_counter = 0,
 			character_counter = 0;
 
 		function updateText()
 		{
-			el.innerHTML = el.innerHTML+words[word_counter][character_counter++];
+			// special case: if the character is a space, replace it with HTML's non-breaking space. fixes bug #2
+			if(words[word_counter][character_counter] === " "){
+				el.innerHTML = el.innerHTML+"&nbsp;";
+				character_counter++;
+			}
+			else{
+				// default: set #magic's inner HTML to the next character of the current word
+				el.innerHTML = el.innerHTML+words[word_counter][character_counter++];
+			}
 
-			if(character_counter == words[word_counter].length)
+			if(character_counter == words[word_counter].length+1)
 			{
 				word_counter++; 	//choose a different word
 				character_counter = 0;	//start over with the first character of the word
@@ -46,6 +55,7 @@
 			}
 		}
 
+		// call updateText() every 300 ms
 		setInterval(updateText,300);
 
 	</script>
